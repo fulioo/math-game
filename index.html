@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>加減練習</title>
+</head>
+<body>
+  <h2>加減法練習</h2>
+  <label>第一個數字 a: <input type="number" id="a"></label><br>
+  <label>第二個數字 b: <input type="number" id="b"></label><br>
+  <label>運算符號 (+ 或 -): <input type="text" id="op"></label><br>
+  <label>你的答案 c: <input type="number" id="userAns"></label><br><br>
+  <button onclick="checkAnswer()">送出</button>
+  <p id="result"></p>
+
+  <script>
+    function checkAnswer() {
+      const a = parseInt(document.getElementById("a").value);
+      const b = parseInt(document.getElementById("b").value);
+      const op = document.getElementById("op").value;
+      const userAns = parseInt(document.getElementById("userAns").value);
+      let correct;
+
+      if (op === "+") {
+        correct = a + b;
+      } else if (op === "-") {
+        correct = a - b;
+      } else {
+        document.getElementById("result").textContent = "請輸入 + 或 -";
+        return;
+      }
+
+      if (userAns === correct) {
+        document.getElementById("result").textContent = "答對了！";
+      } else {
+        document.getElementById("result").textContent = `答錯了，正確答案是 ${correct}`;
+      }
+    }
+  </script>
+</body>
+</html>
