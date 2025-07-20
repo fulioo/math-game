@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>加減法練習</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    input { width: 80px; }
+    #question { font-size: 24px; margin: 10px 0; }
+    #result { font-weight: bold; color: darkblue; }
+  </style>
+</head>
+<body>
+  <h2>加減法練習遊戲</h2>
+
+  <div id="question">題目載入中...</div>
+  
+  <label>你的答案: <input type="number" id="userAns"></label>
+  <button onclick="checkAnswer()">送出</button>
+  <p id="result"></p>
+
+  <script>
+    let a, b, op, correct;
+
+    function generateQuestion() {
+      // 隨機生成兩個數字，0~100
+      a = Math.floor(Math.random() * 101);
+      b = Math.floor(Math.random() * 101);
+      // 隨機選擇運算符號
+      op = Math.random() < 0.5 ? '+' : '-';
+
+      // 如果是減法，確保結果不為負數
+      if (op === '-' && b > a) [a, b] = [b, a];
+
+      // 計算正確答案
+      correct = op === '+' ? a + b : a - b;
+
+      // 顯示題目
+      document.getElementById("question").textContent = `請問：${a} ${op} ${b} = ?`;
+      document.getElementById("result").textContent = "";
+      document.getElementById("userAns").value = "";
+      document.getElementById("userAns").focus();
+    }
+
+    function checkAnswer() {
+      const userAns = parseInt(document.getElementById("userAns").value);
+      if (userAns === correct) {
+        document.getElementById("result").textContent = "✅ 答對了！下一題...";
+        setTimeout(generateQuestion, 1000); // 1秒後出下一題
+      } else {
+        document.getElementById("result").textContent = `❌ 答錯了，請再試一次！`;
+      }
+    }
+
+    // 第一次載入時出題
+    generateQuestion();
+  </script>
+</body>
+</html>
